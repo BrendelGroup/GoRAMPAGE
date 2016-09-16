@@ -36,15 +36,15 @@ track of the paths to the installed binaries.  Although quite a few external
 programs are involved, typical installation can be scripted (as described) and
 would not take more than a few minutes.
 
-GoRAMPAGE relies on a number of bash, python, and R scripts that are placed in
-the [scripts](./scripts) directory.  The python, and R scripts use various
-packages that must be pre-installed on your system.  Run the
-_xcheckprerequisites_ bash script in the [scripts](./scripts) directory to see
-what is available.  If packages are missing, you need to install them prior to
+GoRAMPAGE relies on a number of bash scripts that are placed in
+the [scripts](./scripts) directory.  These scripts invoke various
+packages that must be pre-installed on your system. A list of these
+packages (and how to install them) is found in ../src/README.md.
+If packages are missing, you need to install them prior to
 running the GoRAMPAGE workflow (there are different ways to install these
 packages; if in doubt, ask your systems administrator).
 
 ## Finally
 
-proceed to the [HOWTO](./HOWTO.md) document, and we'll tell you how to execute
+Proceed to the [HOWTO](./HOWTO.md) document, and we'll tell you how to execute
 sample workflows (or, equally easy, your very own data analyses).
