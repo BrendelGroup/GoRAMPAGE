@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: September 16, 2016.  Volker Brendel.
+# Last update: September 17, 2016.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -93,7 +93,8 @@ if [ ! -e "$1" ] ; then
 fi
 
 fastqmultxOptions=`grep '^fastqmultxOptions=' "$1" | awk -F"=" '{print $2}'`
-fastxtrimmerOptions=`grep '^fastxtrimmerOptions=' "$1" | awk -F"=" '{print $2}'`
+fastxtrimmerOptionsR1=`grep '^fastxtrimmerOptionsR1=' "$1" | awk -F"=" '{print $2}'`
+fastxtrimmerOptionsR2=`grep '^fastxtrimmerOptionsR2=' "$1" | awk -F"=" '{print $2}'`
 tagdustOptions=`grep '^tagdustOptions=' "$1" | awk -F"=" '{print $2}'`
 STARoptions=`grep '^STARoptions=' "$1" | awk -F"=" '{print $2}'`
 }
