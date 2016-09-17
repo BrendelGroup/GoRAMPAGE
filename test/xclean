@@ -1,0 +1,2 @@
+\rm -rf alignments/ reads/ STARoutput/
+\rm genome/chr* genome/Genome genome/genomeParameters.txt genome/SA*
