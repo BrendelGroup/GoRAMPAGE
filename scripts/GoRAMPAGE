@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: September 17, 2016.  Volker Brendel.
+# Last update: September 20, 2016.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -389,13 +389,13 @@ if [ $runstep2 == 1 ] ; then
 
   cd ${outputdir}/reads/demultiplexed_matched
   for file in *.R1.fq ; do
-    echo "fastx_trimmer  $fastxtrimmerOptionsR1  -i ${file} -o $(basename -s .fq $file).clipped.fq"
-    sem -j $numproc "fastx_trimmer  $fastxtrimmerOptionsR1  -i ${file} -o $(basename -s .fq $file).clipped.fq; echo  done with fastx_trimmer for ${file} ...;"
+    echo "fastx_trimmer  $fastxtrimmerOptionsR1  -i ${file} -o $(basename $file .fq).clipped.fq"
+    sem -j $numproc "fastx_trimmer  $fastxtrimmerOptionsR1  -i ${file} -o $(basename $file .fq).clipped.fq; echo  done with fastx_trimmer for ${file} ...;"
   done
   sem --wait
   for file in *.R2.fq ; do
-    echo "fastx_trimmer  $fastxtrimmerOptionsR2 -i ${file} -o $(basename -s .fq ${file}).clipped.fq"
-    sem -j $numproc "fastx_trimmer  $fastxtrimmerOptionsR2  -i ${file} -o $(basename -s .fq ${file}).clipped.fq; echo  done with fastx_trimmer for ${file} ...;"
+    echo "fastx_trimmer  $fastxtrimmerOptionsR2 -i ${file} -o $(basename ${file} .fq).clipped.fq"
+    sem -j $numproc "fastx_trimmer  $fastxtrimmerOptionsR2  -i ${file} -o $(basename ${file} .fq).clipped.fq; echo  done with fastx_trimmer for ${file} ...;"
   done
   sem --wait
 
