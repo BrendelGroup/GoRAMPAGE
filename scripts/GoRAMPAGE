@@ -51,7 +51,7 @@ function usage() {
     Step 2  Clipping non-native bases off reads ends
     Step 3  Removal of low quality and other unwanted reads
     Step 4  Read mapping
-    Step 5  Filtering alignment files
+    Step 5  Filtering of read alignments
     Step 6  .
     Step 7  .
 
@@ -531,14 +531,13 @@ fi
 ##########################################
 
 if [ $runstep5 == 1 ] ; then
-  echo "GoRAMPAGE: Now running step 5 (Filtering read alignment files) ..."
+  echo "GoRAMPAGE: Now running step 5 (Filtering of read alignments) ..."
   echo ""
   cd ${workingdir}
 
   if [ ! -d "bam_filtered" ] ; then
     mkdir bam_filtered
   fi
-
   cd ${outputdir}/alignments
   for file1 in *.bam ; do
     echo ""
