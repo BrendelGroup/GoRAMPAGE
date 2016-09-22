@@ -527,18 +527,17 @@ fi
 
 ##########################################
 #Step 5				         #
-#Processing bam files                    #
+#Filtering of read alignments            #
 ##########################################
 
 if [ $runstep5 == 1 ] ; then
-  echo "GoRAMPAGE: Now running step 5 (processing alignment files) ..."
+  echo "GoRAMPAGE: Now running step 5 (Filtering read alignment files) ..."
   echo ""
   cd ${workingdir}
 
   if [ ! -d "bam_filtered" ] ; then
     mkdir bam_filtered
-    fi
-    cd bam_filtered
+  fi
 
   cd ${outputdir}/alignments
   for file1 in *.bam ; do
@@ -550,8 +549,8 @@ if [ $runstep5 == 1 ] ; then
   done
 
   echo ""
-  echo "GoRAMPAGE: Done with step 5 (alignment filtering)."
-  echo "		 Output from this step is in directory ${outputdir}/bam_filtered."
+  echo "GoRAMPAGE: Done with step 5 (Filtering of read alignments)."
+  echo "	   Output from this step is in directory ${outputdir}/bam_filtered."
   echo ""
   echo "================================================================================"
 fi
