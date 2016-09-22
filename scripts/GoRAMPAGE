@@ -535,16 +535,15 @@ if [ $runstep5 == 1 ] ; then
   echo ""
   cd ${workingdir}
 
-if [ ! -d "bam_filtered" ] ; then
-  mkdir bam_filtered
-  fi
-  cd bam_filtered
+  if [ ! -d "bam_filtered" ] ; then
+    mkdir bam_filtered
+    fi
+    cd bam_filtered
 
   cd ${outputdir}/alignments
   for file1 in *.bam ; do
-    echo "Processing " $file1
     echo ""
-    echo "samtools view -b -F 256 -o $(basename $file1 .bam).filtered.bam $file1"
+    echo "samtools view -b $bamFilterOptions -o ${outputdir}/$(basename $file1 .bam).filtered.bam $file1"
     echo ""
     samtools view -b $bamFilterOptions -o ${outputdir}/bam_filtered/$(basename $file1 .bam).filtered.bam $file1
 
