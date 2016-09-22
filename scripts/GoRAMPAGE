@@ -544,12 +544,11 @@ if [ $runstep5 == 1 ] ; then
     echo "samtools view -b $bamFilterOptions -o ${outputdir}/$(basename $file1 .bam).filtered.bam $file1"
     echo ""
     samtools view -b $bamFilterOptions -o ${outputdir}/bam_filtered/$(basename $file1 .bam).filtered.bam $file1
-
   done
 
   echo ""
   echo "GoRAMPAGE: Done with step 5 (Filtering of read alignments)."
-  echo "	   Output from this step is in directory ${outputdir}/bam_filtered."
+  echo "       Output from this step is in directory ${outputdir}/bam_filtered."
   echo ""
   echo "================================================================================"
 fi
