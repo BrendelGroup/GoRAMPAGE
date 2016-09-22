@@ -51,7 +51,7 @@ function usage() {
     Step 2  Clipping non-native bases off reads ends
     Step 3  Removal of low quality and other unwanted reads
     Step 4  Read mapping
-    Step 5  .
+    Step 5  Filtering of read alignments
     Step 6  .
     Step 7  .
 
@@ -521,6 +521,34 @@ if [ $runstep4 == 1 ] ; then
   echo "       Output from this step is in directory ${outputdir}/STARoutput."
   echo "       Read alignments are accessible for inspection and further processing"
   echo "       in ${outputdir}/alignments."
+  echo ""
+  echo "================================================================================"
+fi
+
+##########################################
+#Step 5				         #
+#Filtering of read alignments            #
+##########################################
+
+if [ $runstep5 == 1 ] ; then
+  echo "GoRAMPAGE: Now running step 5 (Filtering of read alignments) ..."
+  echo ""
+  cd ${workingdir}
+
+  if [ ! -d "bam_filtered" ] ; then
+    mkdir bam_filtered
+  fi
+  cd ${outputdir}/alignments
+  for file1 in *.bam ; do
+    echo ""
+    echo "samtools view -b $bamFilterOptions -o ${outputdir}/$(basename $file1 .bam).filtered.bam $file1"
+    echo ""
+    samtools view -b $bamFilterOptions -o ${outputdir}/bam_filtered/$(basename $file1 .bam).filtered.bam $file1
+  done
+
+  echo ""
+  echo "GoRAMPAGE: Done with step 5 (Filtering of read alignments)."
+  echo "       Output from this step is in directory ${outputdir}/bam_filtered."
   echo ""
   echo "================================================================================"
 fi
