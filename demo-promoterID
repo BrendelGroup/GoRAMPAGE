@@ -1,0 +1,21 @@
+## TSS and Promoter Identification [Optional]
+### note: before you begin this demo, please check that there are BAM files in bam_filtered/. Otherwise please specify the location of the alignments to be processed in TSRchitect
+### This demo should be run from the top-level directory of GoRAMPAGE (GoRAMPAGE/)
+####################################################################################################
+# Installation of TSRchitect from source
+devtools::install_github("brendelgroup/TSRchitect")
+# Loading the TSRchitect library
+library(TSRchitect)
+####################################################################################################
+# initializing the tssExp object                                                                   
+initializeExp("Example RAMPAGE experiment (Rice)", "riceRAMPAGE", "bam_filtered", isPairedEnd=TRUE)#
+####################################################################################################
+# loading the BAM files from the TSS profiling experiment (in this case, RAMPAGE)                     
+importBam(riceRAMAPGE)                                                                             #
+####################################################################################################
+# converting BAM data into TSS information and attaching it to your tssExp object                  
+bamToTSS(riceRAMPAGE)                                                                              #
+####################################################################################################
+# finding TSRs for a given dataset (in this case, the first one)
+tsrFind(expName=RiceRAMPAGE, tssNum=1, clustDist=20, nTSSs=3)				           #
+####################################################################################################
