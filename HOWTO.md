@@ -38,7 +38,7 @@ GoRAMPAGE
     Step 2  Clipping non-native bases off reads ends
     Step 3  Removal of low quality and other unwanted reads
     Step 4  Read mapping
-    Step 5  .
+    Step 5  Filtering of read alignments
     Step 6  .
     Step 7  .
 
@@ -137,3 +137,5 @@ until the final step.
 ##### Step 3: Removal of rRNA and low complexity sequences (tagDust) from demultiplexed fastq files
 
 ##### Step 4: Alignment of demultiplexed, trimmed, rRNA-removed fastq files to the genome.
+
+##### Step 5: Filtering of RAMPAGE alignment files for subsequent identification of promoters (e.g. using TSRchitect)
