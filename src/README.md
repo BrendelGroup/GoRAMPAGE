@@ -83,23 +83,11 @@ from https://sourceforge.net/projects/tagdust/
 	cd ../..
 ```
 
-
-#GoRAMPAGE
-```bash
-	git clone https://github.com/brendelgroup/GoRAMPAGE.git
-```
-
-#Bioconductor
-```bash
-	source("https://bioconductor.org/biocLite.R")
-	biocLite()
-```
-
 #TSRchitect
 ```bash
 	git clone https://github.com/brendelgroup/TSRchitect.git
 	cd TSRchitect
-	R CMD INSTALL TSRchitect
 ```
+and follow the given installation instructions.
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

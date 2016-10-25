@@ -97,6 +97,7 @@ fastxtrimmerOptionsR1=`grep '^fastxtrimmerOptionsR1=' "$1" | awk -F"=" '{print $
 fastxtrimmerOptionsR2=`grep '^fastxtrimmerOptionsR2=' "$1" | awk -F"=" '{print $2}'`
 tagdustOptions=`grep '^tagdustOptions=' "$1" | awk -F"=" '{print $2}'`
 STARoptions=`grep '^STARoptions=' "$1" | awk -F"=" '{print $2}'`
+bamFilterOptions=`grep '^bamFilterOptions=' "$1" | awk -F"=" '{print $2}'`
 }
 
 

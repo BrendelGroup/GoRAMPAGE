@@ -1,0 +1,24 @@
+# TSS and Promoter Identification [Optional]
+# Note: before you begin this demo, please check that there are BAM files in bam_filtered/.
+# Otherwise please specify the location of the alignments to be processed by TSRchitect.
+
+# To run this script, execute on the commandline the following:
+# Rscript --default-packages=methods,utils,stats promoterID.Rscript
+
+# Loading the TSRchitect library
+library(TSRchitect)
+
+# Initializing the tssExp object                                                                   
+initializeExp("Example RAMPAGE experiment (Rice)", "riceRAMPAGE", "bam_filtered", isPairedEnd=TRUE)
+
+# Loading the BAM files from the TSS profiling experiment (in this case, RAMPAGE)                     
+importBam(riceRAMPAGE)
+
+# Converting BAM data into TSS information and attaching it to your tssExp object                  
+bamToTSS(riceRAMPAGE)
+
+# Finding TSRs for a given dataset (in this case, the first one)
+tsrFind(expName=riceRAMPAGE, tssNum=1, clustDist=20, nTSSs=3)
+
+# Output:
+# file CTSS1.txt
