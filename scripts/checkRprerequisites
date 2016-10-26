@@ -1,0 +1,12 @@
+# GoRAMPAGE prerequisite check
+#
+#   Rscript checkRprerequisites
+#
+# will report errors if any of the following libraries cannot be found.
+#
+library(TSRchitect)
+library(methods)
+library(utils)
+library(stats)
+
+cat("It looks like all required libraries are available.  Proceed!\n")

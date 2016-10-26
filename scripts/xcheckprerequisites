@@ -1,0 +1,127 @@
+#!/bin/bash
+#
+# xcheckprerequisites - a bash script to check on the installation of
+#  software and packages required by GoRAMPAGE
+#
+clear
+echo "This script should stop when it encounters a missing piece for the"
+echo "GoRAMPAGE workflow.  You will have to make adjustments first, then try"
+echo "again.  Let us know if the INSTALL.md instructions are not clear."
+echo ""
+
+echo "================================================================================"
+
+echo ""
+echo "Now checking on installation of some basic Linux functionality ..."
+echo ""
+type sem
+if [ "$?" -eq "1" ] ; then
+	echo "sem aka. parallel --semaphore is not available."
+	echo "Please check that 'GNU parallel' is properly installed on your system."
+	exit 1
+else
+	which sem
+	echo "  is in your PATH"
+fi
+
+
+echo ""
+type Rscript
+if [ "$?" -eq "1" ] ; then
+	echo "Rscript is not available."
+	echo "Please check that 'R/Rscript' are properly installed on your system."
+	exit 1
+else
+	which Rscript
+	echo "  is in your PATH"
+fi
+
+echo ""
+echo ""
+echo "Ok - the basics are in place. Now let's check on particulars."
+echo "================================================================================"
+
+echo ""
+echo "Now running Rscript checkRprerequisites ..."
+echo "If the script results in errors, then you will need to install required R libraries."
+echo "Check with your system administrator on how to do that."
+echo ""
+Rscript checkRprerequisites
+if [ "$?" -eq "1" ] ; then
+	echo ""
+	echo "One or more R packages are not accessible."
+	echo "Please review the GoRAMPAGE INSTALL.md document."
+	exit 1
+fi
+echo "================================================================================"
+
+
+echo ""
+echo ""
+echo "Ok - all required R modules are in place. Now let's check on other software."
+echo "================================================================================"
+
+echo ""
+type fastq-multx
+if [ "$?" -eq "1" ] ; then
+	echo "fastq-multx is not installed or not added to your path variable."
+	echo "Please review the GoRAMPAGE INSTALL.md document."
+	exit 1
+else
+	which fastq-multx
+	echo "  is in your PATH"
+fi
+
+echo ""
+type fastx_trimmer
+if [ "$?" -eq "1" ]; then
+	echo "fastx_trimmer from the fastx_toolkit package is not installed or not added to your path variable."
+	echo "Please review the GoRAMPAGE INSTALL.md document."
+	exit 1
+else
+	which fastx_trimmer
+	echo "  is in your PATH"
+fi
+
+echo ""
+type tagdust
+if [ "$?" -eq "1" ]; then
+	echo "tagdust from the tagdust package is not installed or not added to your path variable."
+	echo "Please review the GoRAMPAGE INSTALL.md document."
+	exit 1
+else
+	which tagdust
+	echo "  is in your PATH"
+fi
+
+
+echo ""
+echo ""
+echo "Ok - all required software seems to be accesible. Now let's check on GoRAMPAGE."
+echo "================================================================================"
+
+echo ""
+
+# GoRAMPAGE
+type GoRAMPAGE
+if [ "$?" -eq "1" ];then
+	echo "The GoRAMPAGE scripts directory does not appear to be in your bash environment path."
+	exit 1
+else
+	which GoRAMPAGE
+	echo "  is in your PATH"
+fi
+
+echo "================================================================================"
+echo "================================================================================"
+echo ""
+echo ""
+echo "Great.  Everything seems to have been installed nicely."
+echo "You should be able to proceed to the instructions in the GoRAMPAGE HOWTO.md document"
+echo "and test and apply GoRAMPAGE."
+echo ""
+echo "We would still recommend that you scroll over the messages printed out by this"
+echo "script and confirm that everything is to your liking."
+
+echo ""
+
