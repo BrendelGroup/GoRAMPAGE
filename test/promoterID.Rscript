@@ -17,8 +17,11 @@ importBam(riceRAMPAGE)
 # Converting BAM data into TSS information and attaching it to your tssExp object                  
 bamToTSS(riceRAMPAGE)
 
+# Creating an expression matrix for a given dataset (in this case, the first one)
+tssExpr(riceRAMPAGE, tssNum=1, writeTable=FALSE)
+
 # Finding TSRs for a given dataset (in this case, the first one)
-tsrFind(expName=riceRAMPAGE, tssNum=1, clustDist=20, nTSSs=3)
+tsrFind(expName=riceRAMPAGE, tssNum=1, clustDist=20, nTSSs=3, writeTable=TRUE)
 
 # Output:
 # file CTSS1.txt
