@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: September 20, 2016.  Volker Brendel.
+# Last update: December 18, 2016.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -96,7 +96,8 @@ fastqmultxOptions=`grep '^fastqmultxOptions=' "$1" | awk -F"=" '{print $2}'`
 fastxtrimmerOptionsR1=`grep '^fastxtrimmerOptionsR1=' "$1" | awk -F"=" '{print $2}'`
 fastxtrimmerOptionsR2=`grep '^fastxtrimmerOptionsR2=' "$1" | awk -F"=" '{print $2}'`
 tagdustOptions=`grep '^tagdustOptions=' "$1" | awk -F"=" '{print $2}'`
-STARoptions=`grep '^STARoptions=' "$1" | awk -F"=" '{print $2}'`
+STARgenomeGenerateOptions=`grep '^STARgenomeGenerateOptions=' "$1" | awk -F"=" '{print $2}'`
+STARreadAlignOptions=`grep '^STARreadAlignOptions=' "$1" | awk -F"=" '{print $2}'`
 bamFilterOptions=`grep '^bamFilterOptions=' "$1" | awk -F"=" '{print $2}'`
 }
 
@@ -358,13 +359,15 @@ if [ $runstep1 == 1 ] ; then
 
   for file in `ls *R1.fq | cut -d "." -f1`; do
     echo "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_%.R1.fq ${file}_%.R2.fq"
-    sem -j $numproc "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_%.R1.fq ${file}_%.R2.fq >& demultiplexing-${file}.log; echo done with fastq-multx for ${file} ...";
+#   sem -j $numproc "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_%.R1.fq ${file}_%.R2.fq >& demultiplexing-${file}.log; echo done with fastq-multx for ${file} ...";
+    sem -j $numproc "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_dm_%.R1.fq ${file}_dm_%.R2.fq >& demultiplexing-${file}.log; echo done with fastq-multx for ${file} ...";
   done
   sem --wait
 
   mv demultiplexing-*.log ${outputdir}/reads/LOGFILES
   mv *_unmatched.R?.fq ${outputdir}/reads/demultiplexed_unmatched
-  mv *_*.R?.fq ${outputdir}/reads/demultiplexed_matched
+# mv *_*.R?.fq ${outputdir}/reads/demultiplexed_matched
+  mv *_dm_*.R?.fq ${outputdir}/reads/demultiplexed_matched
 
   cd ${workingdir}
   echo ""
@@ -428,7 +431,6 @@ if [ $runstep3 == 1 ] ; then
   echo ""
   cd ${workingdir}
 
-# reference=`readlink -f ${genomedir}/${reference}`
   reference=`readlink -f ${reference}`
   if [ ! -e "${reference}" ] ; then
     echo ""
@@ -483,8 +485,8 @@ if [ $runstep4 == 1 ] ; then
   cd ${workingdir}
 
   if [ ! -e ${genomedir}/SAindex ] ; then
-    echo "STAR --runMode genomeGenerate --runThreadN $numproc --genomeDir $genomedir --genomeFastaFiles $genomedir/*.fa"
-    STAR --runMode genomeGenerate --runThreadN $numproc --genomeDir $genomedir --genomeFastaFiles $genomedir/*.fa
+    echo "STAR --runMode genomeGenerate --runThreadN $numproc  ${STARgenomeGenerateOptions}  --genomeDir $genomedir --genomeFastaFiles $genomedir/*.fa"
+    STAR --runMode genomeGenerate --runThreadN $numproc  ${STARgenomeGenerateOptions}  --genomeDir $genomedir --genomeFastaFiles $genomedir/*.fa
   else
     echo "Using existing STAR suffix array for genome file $genomedir/*.fa"
   fi
@@ -492,8 +494,8 @@ if [ $runstep4 == 1 ] ; then
   cd ${outputdir}/reads
   for file1 in *.READ1.fq ; do
     file2=${file1/.READ1./.READ2.}
-    echo "STAR --runMode alignReads --runThreadN $numproc  ${STARoptions}  --outSAMtype BAM SortedByCoordinate --outSAMorder Paired  --outFileNamePrefix $(basename $file1 .READ1.fq).STAR.  --genomeDir $genomedir  --readFilesIn ${file1} ${file2}"
-    STAR --runMode alignReads --runThreadN $numproc  ${STARoptions}  --outSAMtype BAM SortedByCoordinate --outSAMorder Paired  --outFileNamePrefix $(basename $file1 .READ1.fq).STAR.  --genomeDir $genomedir  --readFilesIn ${file1} ${file2}
+    echo "STAR --runMode alignReads --runThreadN $numproc  ${STARalignReadsOptions}  --outSAMtype BAM SortedByCoordinate --outSAMorder Paired  --outFileNamePrefix $(basename $file1 .READ1.fq).STAR.  --genomeDir $genomedir  --readFilesIn ${file1} ${file2}"
+    STAR --runMode alignReads --runThreadN $numproc  ${STARalignReadsOptions}  --outSAMtype BAM SortedByCoordinate --outSAMorder Paired  --outFileNamePrefix $(basename $file1 .READ1.fq).STAR.  --genomeDir $genomedir  --readFilesIn ${file1} ${file2}
   done
 
   cd ${outputdir}
