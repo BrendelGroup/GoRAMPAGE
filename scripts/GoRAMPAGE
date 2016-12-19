@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: December 18, 2016.  Volker Brendel.
+# Last update: December 19, 2016.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -506,7 +506,10 @@ if [ $runstep4 == 1 ] ; then
   for file in reads/*.STAR.* ; do
     mv $file STARoutput
   done
-  mv ${workingdir}/Log.out STARoutput/STARlogfile
+
+  if [ -e ${workingdir}/Log.out ] ; then
+    mv ${workingdir}/Log.out STARoutput/STARlogfile
+  fi
 
   if [ ! -d "alignments" ] ; then
     mkdir alignments
