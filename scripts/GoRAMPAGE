@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: December 19, 2016.  Volker Brendel.
+# Last update: August 1, 2017.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -38,10 +38,10 @@ input="unclear"
 
 function usage() {
   echo "
-    Usage: $0 -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
+    Usage: $0 -r <rawreaddir> -R <reference> -g <genomedir> [options]
 
     Examples:
-      $0 -r rawreads -b rawreads/barcodes -R genome/rRNA.ref -g genome --runonlystep step1 >& errTEST1
+      $0 -r rawreads -R genome/rRNA.ref -g genome -b rawreads/barcodes --runonlystep step1 >& errTEST1
 
     GoRAMPAGE will determine transcription start regions (TSRs) in a several-steps workflow.
     You can specify partial workflow execution by specifying \"stepX\" [X = 1, 2, ..., 7] as
@@ -65,10 +65,10 @@ function usage() {
 
       1) Mandatory options:
         -r|--rawreadsdir <path>           Directory that contains the raw reads (all files ending in *.fq)
-        -b|--barcodes <path>              barcodes file for use by fastq-multx
         -g|--genome <path>                Directory that contains the genome sequence files (all files ending in .*fa)
         -R|--reference <path>             Reference file genome directory for use by tagdust (one file ending in *.ref)                  
       2) GoRAMPAGE-specific options:
+        -b|--barcodes <path>              barcodes file for use by fastq-multx
         -p|--numproc <#>                  Use <#> processors during execution [Default: 1]; ideally a multipe of the -k argument.
         -o|--outputdir <path>             Put output into directory <path> [Default: ./]
         -c|--configfile <path>            Configuration file [Default: $configfile]
@@ -106,7 +106,7 @@ bamFilterOptions=`grep '^bamFilterOptions=' "$1" | awk -F"=" '{print $2}'`
 ##### Process command line arguments: #####
 #
 
-OPTIONS=`getopt -o c:r:b:R:g:p:o:h --long configfile:,rawreadsdir:,barcodes:,reference:,genome:numproc:,outputdir:,startfromstep:,stopatstep:,runonlystep:,help -n 'GoRAMPAGE error' -- "$@"`
+OPTIONS=`getopt -o c:r:g:R:b:p:o:h --long configfile:,rawreadsdir:,genome:,reference:,barcodes:,numproc:,outputdir:,startfromstep:,stopatstep:,runonlystep:,help -n 'GoRAMPAGE error' -- "$@"`
 if [ $? != 0 ] ; then echo " " ; echo "Could not parse options (see above) ..." >&2 ; usage short ; exit 1 ; fi
 
 eval set -- "$OPTIONS"
@@ -132,10 +132,10 @@ while true ; do
          *) rawreadsdir=$2 ; shift 2 ;;
       esac ;;
 
-    -b|--barcodes)
+    -g|--genome)
       case "$2" in
-        -*) echo "Please provide a file containing barcodes when using -b"; usage short; exit 1 ;;
-         *) barcodes=$2 ; shift 2 ;;
+        -*) echo "Please provide a genome directory when using -g"; usage short; exit 1 ;;
+         *) genomedir=$2 ; shift 2 ;;
       esac ;;
 
     -R|--reference)
@@ -144,10 +144,10 @@ while true ; do
          *) reference=$2 ; shift 2 ;;
       esac ;;
 
-    -g|--genome)
+    -b|--barcodes)
       case "$2" in
-        -*) echo "Please provide a genome directory when using -g"; usage short; exit 1 ;;
-         *) genomedir=$2 ; shift 2 ;;
+        -*) echo "Please provide a file containing barcodes when using -b"; usage short; exit 1 ;;
+         *) barcodes=$2 ; shift 2 ;;
       esac ;;
 
     -p|--numproc)
@@ -195,7 +195,6 @@ if [[ $debug == 'true' ]] ; then
   echo "Variable values:"
   echo ""
   echo "rawreadsdir	=	$rawreadsdir"
-  echo "barcodes	=	$barcodes"
   echo "genomedir	=	$genomedir"
   echo "reference	=	$reference"
   echo "numproc		=	$numproc"
@@ -249,13 +248,11 @@ outputdir=`readlink -f ${outputdir}`
 rawreadsdir=`readlink -f ${rawreadsdir}`
 genomedir=`readlink -f ${genomedir}`
 reference=`readlink -f ${reference}`
-barcodes=`readlink -f ${barcodes}`
 
 echo $outputdir
 echo $rawreadsdir
 echo $genomedir
 echo $reference
-echo $barcodes
 
 if [ ! -d "$outputdir" ] ; then
   echo ""
@@ -272,11 +269,6 @@ if [ ! -d "$genomedir" ] ; then
   echo "Fatal error: Genome directory $genomedir does not exist.  Please check."
   exit 1
 fi
-if [ ! -e "${barcodes}" ] ; then
-  echo ""
-  echo "Fatal error: fastq-multx specified reference ${barcodes} not found.  Please check."
-  exit 1
-fi 
 if [ ! -e "${reference}" ] ; then
   echo ""
   echo "Fatal error: tagdust specified reference ${reference} not found.  Please check."
@@ -344,6 +336,11 @@ if [ $runstep1 == 1 ] ; then
   echo "GoRAMPAGE: Now running step 1 (demultiplexing raw reads) ..."
   echo ""
 
+  if [ ! -e "${barcodes}" ] ; then
+    echo ""
+    echo "Fatal error: fastq-multx specified reference ${barcodes} not found.  Please check."
+    exit 1
+  fi 
   barcodes=$(readlink -f ${barcodes})
   cd ${rawreadsdir}
 
@@ -366,7 +363,6 @@ if [ $runstep1 == 1 ] ; then
 
   mv demultiplexing-*.log ${outputdir}/reads/LOGFILES
   mv *_unmatched.R?.fq ${outputdir}/reads/demultiplexed_unmatched
-# mv *_*.R?.fq ${outputdir}/reads/demultiplexed_matched
   mv *_dm_*.R?.fq ${outputdir}/reads/demultiplexed_matched
 
   cd ${workingdir}
