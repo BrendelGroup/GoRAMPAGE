@@ -1,0 +1,40 @@
+mkdir fastq_files
+cd fastq_files
+fastq-dump --split-files SRR424683
+fastq-dump --split-files SRR424684
+fastq-dump --split-files SRR424685
+
+fastq-dump --split-files SRR424707
+fastq-dump --split-files SRR424708
+fastq-dump --split-files SRR424709
+
+ls -l *.fastq | wc -l
+cd ..
+
+mkdir genome
+cd genome
+wget ftp://ftp.ensembl.org/pub/release-78/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP5.dna.toplevel.fa.gz
+gzip -d Drosophila_melanogaster.BDGP5.dna.toplevel.fa.gz
+cd ..
+
+mkdir -p output/reads/clipped
+cd output/reads/clipped
+
+ln -s ../../../fastq-files/SRR424683_1.fastq E01h.R1.clipped.fq 
+ln -s ../../../fastq-files/SRR424683_2.fastq E01h.R2.clipped.fq
+ln -s ../../../fastq-files/SRR424684_1.fastq E02h.R1.clipped.fq
+ln -s ../../../fastq-files/SRR424684_2.fastq E02h.R2.clipped.fq
+ln -s ../../../fastq-files/SRR424685_1.fastq E03h.R1.clipped.fq
+ln -s ../../../fastq-files/SRR424685_2.fastq E03h.R2.clipped.fq
+
+ln -s ../../../fastq-files/SRR424707_1.fastq L1.R1.clipped.fq 
+ln -s ../../../fastq-files/SRR424707_2.fastq L1.R2.clipped.fq
+ln -s ../../../fastq-files/SRR424708_1.fastq L2.R1.clipped.fq
+ln -s ../../../fastq-files/SRR424708_2.fastq L2.R2.clipped.fq
+ln -s ../../../fastq-files/SRR424709_1.fastq L3.R1.clipped.fq
+ln -s ../../../fastq-files/SRR424709_2.fastq L3.R2.clipped.fq
+
+cd ../../..
+
+vi GoRAMPAGE_script_MMB.sh
+#./GoRAMPAGE_script_MMB.sh
