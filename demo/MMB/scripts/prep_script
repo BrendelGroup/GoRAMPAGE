@@ -20,21 +20,20 @@ cd ..
 mkdir -p output/reads/clipped
 cd output/reads/clipped
 
-ln -s ../../../fastq-files/SRR424683_1.fastq E01h.R1.clipped.fq 
-ln -s ../../../fastq-files/SRR424683_2.fastq E01h.R2.clipped.fq
-ln -s ../../../fastq-files/SRR424684_1.fastq E02h.R1.clipped.fq
-ln -s ../../../fastq-files/SRR424684_2.fastq E02h.R2.clipped.fq
-ln -s ../../../fastq-files/SRR424685_1.fastq E03h.R1.clipped.fq
-ln -s ../../../fastq-files/SRR424685_2.fastq E03h.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424683_1.fastq E01h.R1.clipped.fq 
+ln -s ../../../fastq_files/SRR424683_2.fastq E01h.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424684_1.fastq E02h.R1.clipped.fq
+ln -s ../../../fastq_files/SRR424684_2.fastq E02h.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424685_1.fastq E03h.R1.clipped.fq
+ln -s ../../../fastq_files/SRR424685_2.fastq E03h.R2.clipped.fq
 
-ln -s ../../../fastq-files/SRR424707_1.fastq L1.R1.clipped.fq 
-ln -s ../../../fastq-files/SRR424707_2.fastq L1.R2.clipped.fq
-ln -s ../../../fastq-files/SRR424708_1.fastq L2.R1.clipped.fq
-ln -s ../../../fastq-files/SRR424708_2.fastq L2.R2.clipped.fq
-ln -s ../../../fastq-files/SRR424709_1.fastq L3.R1.clipped.fq
-ln -s ../../../fastq-files/SRR424709_2.fastq L3.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424707_1.fastq L1.R1.clipped.fq 
+ln -s ../../../fastq_files/SRR424707_2.fastq L1.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424708_1.fastq L2.R1.clipped.fq
+ln -s ../../../fastq_files/SRR424708_2.fastq L2.R2.clipped.fq
+ln -s ../../../fastq_files/SRR424709_1.fastq L3.R1.clipped.fq
+ln -s ../../../fastq_files/SRR424709_2.fastq L3.R2.clipped.fq
 
 cd ../../..
 
-vi GoRAMPAGE_script_MMB.sh
-#./GoRAMPAGE_script_MMB.sh
+#./GoRAMPAGE_script_MMB.sh #please edit this script before executing
