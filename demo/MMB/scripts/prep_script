@@ -36,4 +36,4 @@ ln -s ../../../fastq_files/SRR424709_2.fastq L3.R2.clipped.fq
 
 cd ../../..
 
-#./GoRAMPAGE_script_MMB.sh #please edit this script before executing
+#./GoRAMPAGE_script_MMB.sh #please edit this script with customized directry specification before executing
