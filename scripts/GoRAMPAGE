@@ -540,7 +540,7 @@ if [ $runstep5 == 1 ] ; then
   echo "GoRAMPAGE: Now running step 5 (Filtering of read alignments) ..."
   echo ""
   cd ${workingdir}
-  
+
 if [ ! -d "${outputdir}/bam_filtered" ] ; then
    mkdir ${outputdir}/bam_filtered
  fi
