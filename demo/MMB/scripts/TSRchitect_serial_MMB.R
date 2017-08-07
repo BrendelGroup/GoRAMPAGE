@@ -5,8 +5,8 @@ ptm <- proc.time()
 # ... loading the TSRchitect library:
 library(TSRchitect)
 
-BAMDIR  <- c("/path/to/RAMPAGE/output/alignments>")
-DmAnnot  <- c("/path/to//Drosophila_melanogaster.BDGP5.78.gff")
+BAMDIR  <- c("/path/to/RAMPAGE/demo/output/alignments>")
+DmAnnot  <- c("/path/to/additional_files/Drosophila_melanogaster.BDGP5.78.gff")
 
 # ... initializing the tssObj object:
 DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, inputType="bam", isPairedEnd=TRUE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
