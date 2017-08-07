@@ -5,8 +5,12 @@ ptm <- proc.time()
 # ... loading the TSRchitect library:
 library(TSRchitect)
 
-BAMDIR  <- c("/path/to/RAMPAGE/demo/output/alignments>")
-DmAnnot  <- c("/path/to/additional_files/Drosophila_melanogaster.BDGP5.78.gff")
+### NOTE: You will need to replace WORKDIR and GoRAMPAGEhome in the following two lines by the
+###       appropriate paths on your system to make this script work.
+###       Also change n.cores=4 throughout to use fewer or more processors.
+###
+BAMDIR  <- c("WORKDIR/output/alignments")
+DmAnnot <- c("GoRAMPAGEhome/demo/MMB/additional_files/Drosophila_melanogaster.BDGP5.78.gff")
 
 # ... initializing the tssObj object:
 DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, inputType="bam", isPairedEnd=TRUE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
@@ -50,14 +54,7 @@ DmRAMPAGE <- determineTSR(experimentName=DmRAMPAGE, n.cores=4, tsrSetType="merge
 #
 DmRAMPAGE <- addAnnotationToTSR(experimentName=DmRAMPAGE, tsrSetType="merged", tsrSet=1, upstreamDist=1000, downstreamDist=200, feature="gene", featureColumnID="ID", writeTable=TRUE)
 DmRAMPAGE <- addAnnotationToTSR(experimentName=DmRAMPAGE, tsrSetType="merged", tsrSet=2, upstreamDist=1000, downstreamDist=200, feature="gene", featureColumnID="ID", writeTable=TRUE)
-
-# Optional:  Let's explore how many TSS are precisely identified:
-#
-#system("mv TSRset-1.txt TSRset-1.txtORIG")
-
-# Optional:  Write bed-formatted output:
-#
-#writeTSR(experimentName=DmRAMPAGE, tsrSetType="replicates", tsrSet=1, fileType="bed")
+DmRAMPAGE <- addAnnotationToTSR(experimentName=DmRAMPAGE, tsrSetType="merged", tsrSet=3, upstreamDist=1000, downstreamDist=200, feature="gene", featureColumnID="ID", writeTable=TRUE)
 
 proc.time() - ptm
 
