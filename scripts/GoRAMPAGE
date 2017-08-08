@@ -537,9 +537,9 @@ if [ $runstep5 == 1 ] ; then
   echo ""
   cd ${workingdir}
 
-if [ ! -d "${outputdir}/bam_filtered" ] ; then
-   mkdir ${outputdir}/bam_filtered
- fi
+  if [ ! -d "${outputdir}/bam_filtered" ] ; then
+    mkdir ${outputdir}/bam_filtered
+  fi
   cd ${outputdir}/alignments
   for file1 in *.bam ; do
     echo ""
