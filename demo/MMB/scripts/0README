@@ -1,0 +1,26 @@
+To run the example described in the chapter, you may do the following:
+(we'll assume that you have cloned the GoRAMPAGE directory into ~/)
+
+1) Go to some clean work directory and run the prep_script bash commands in the directory, e.g.
+
+	mkdir ~/test
+	cd ~/test
+	cp ~/GoRAMPAGE/demo/MMB/scripts/* ./
+	./prep_script
+
+2) Edit GoRAMPAGE_script_MMB.sh and set the following variables:
+
+	GoRAMPAGEhome	to your home for GoRAMPAGE (~/GoRAMPAGE in this example)
+	workdir		to your current work directory (~/test in this example)
+
+   Similarly, edit TSRchitect_*MMB.R and replace instances (on top of the files) of
+
+	GoRAMPAGEhome	with your home for GoRAMPAGE (~/GoRAMPAGE in this example)
+	WORKDIR		with your current work directory (~/test in this example)
+
+3) Now you should be set to run the tasks (in order):
+
+	./GoRAMPAGE_script_MMB.sh
+	Rscript TSRchitect_serial_MMB.sh
+
+   (or use the parallel version for the TSRchitect script if you have the resources to do so).
