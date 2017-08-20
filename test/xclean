@@ -1,2 +1,3 @@
 \rm -rf alignments/ reads/ STARoutput/ bam_filtered/
 \rm genome/chr* genome/Genome genome/genomeParameters.txt genome/SA*
+\rm TSRset* TSSset*
