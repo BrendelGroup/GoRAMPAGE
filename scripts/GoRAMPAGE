@@ -2,7 +2,7 @@
 # GoRAMPAGE:  a bash script to run the GoRAMPAGE workflow.
 #              RAMPAGE reads to insight.
 #
-# Last update: August 1, 2017.  Volker Brendel.
+# Last update: August 20, 2017.  Volker Brendel.
 #
 
 debug=true	# set to true for code development
@@ -356,7 +356,6 @@ if [ $runstep1 == 1 ] ; then
 
   for file in `ls *R1.fq | cut -d "." -f1`; do
     echo "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_%.R1.fq ${file}_%.R2.fq"
-#   sem -j $numproc "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_%.R1.fq ${file}_%.R2.fq >& demultiplexing-${file}.log; echo done with fastq-multx for ${file} ...";
     sem -j $numproc "fastq-multx -B $barcodes  $fastqmultxOptions  ${file}.R1.fq ${file}.R2.fq -o ${file}_dm_%.R1.fq ${file}_dm_%.R2.fq >& demultiplexing-${file}.log; echo done with fastq-multx for ${file} ...";
   done
   sem --wait

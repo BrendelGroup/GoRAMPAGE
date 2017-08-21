@@ -12,3 +12,11 @@ tail -f err
 #Help:
 
 ../scripts/GoRAMPAGE -h
+
+#To analyze GoRAMPAGE output, you will want to install the Bioconductor package
+#TSRchitect (https://www.bioconductor.org/packages/release/bioc/html/TSRchitect.html).
+#Once installed, you can turn the GoRAMPAGE generated read alignments into promoter
+#predictions.  See TSRchitect documentation and run the following command to explore
+#the test data:
+
+Rscript followup.Rscript
