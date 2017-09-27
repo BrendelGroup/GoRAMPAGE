@@ -13,10 +13,10 @@ BAMDIR  <- c("WORKDIR/output/alignments")
 DmAnnot <- c("GoRAMPAGEhome/demo/MMB/additional_files/Drosophila_melanogaster.BDGP5.78.gff")
 
 # ... initializing the tssObj object:
-DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, inputType="bam", isPairedEnd=TRUE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
+DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, isPairedBAM=TRUE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
 
 # ... converting BAM data into TSS information and attaching it to the tssObj object:
-DmRAMPAGE <- bamToTSS(DmRAMPAGE)
+DmRAMPAGE <- inputToTSS(DmRAMPAGE)
 
 # ... constructing the tag count per TSS data matrices:
 DmRAMPAGE <- processTSS(experimentName=DmRAMPAGE, n.cores=4, tssSet="all", writeTable=TRUE)
