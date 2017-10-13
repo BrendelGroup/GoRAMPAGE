@@ -22,9 +22,6 @@ material. The workflow presented in __GoRAMPAGE__ was developed for analysis of 
 To begin, simply type 'GoRAMPAGE' on your command line, which results in the following:
 
 ```
-GoRAMPAGE
-
-
     Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
@@ -43,15 +40,11 @@ GoRAMPAGE
     Step 7  .
 
     To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
-  
-
-GoRAMPAGE -h
-GoRAMPAGE --help
 ```
-OPTIONS string:
--h --
 
+The additional help is shown as:
 
+```
     Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
@@ -70,7 +63,7 @@ OPTIONS string:
     Step 7  .
 
     To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
-  
+
 
       Options default to the specified values if not set.
       Details:
@@ -90,20 +83,20 @@ OPTIONS string:
          --runonlystep <string>           Workflow step to execute; previous steps must have run successfully before.
       4) Else:
         -h|--help                         Show this usage information
-    
+
 ```
-__GoRAMPAGE__ requires the following be supplied to run the entire workflow
+__GoRAMPAGE__ requires the following be supplied to run the entire workflow:
 
 * raw FASTQ file(s) (containing RAMPAGE or other paired-end TSS profiling sequence information; both R1 and R2 files required)
 * a genome assembly (FASTA) file (containing the genome assembly that the fastq reads will be aligned against)
-* a FASTA file containing rRNA sequences from the organism being studied. Each rRNA sequence should be represented by a separate fasta header line (> sequence ID). 
+* a FASTA file containing rRNA sequences from the organism being studied. Each rRNA sequence should be represented by a separate fasta header line (> sequence ID).
 * a barcode file (specifying the barcode sequence and identifier for each sample in the dataset)
 
 The format of the barcode file is as follows:
-
+```
 <sample identifier> <barcode sequence>
-
-An example barcode file can be found in test/barcode
+```
+An example barcode file can be found in _test/barcode_.
 
 ## Sample __GoRAMPAGE__ invocations
 
@@ -132,7 +125,7 @@ until the final step.
 
 ##### Step 1: Demultiplexing the raw fastq files according to their adapter sequence.
 
-##### Step 2: Clipping the adapters from the demultiplexed reads (both R1 and R2). 
+##### Step 2: Clipping the adapters from the demultiplexed reads (both R1 and R2).
 
 ##### Step 3: Removal of rRNA and low complexity sequences (tagDust) from demultiplexed fastq files
 
