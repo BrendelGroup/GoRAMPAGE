@@ -7,22 +7,23 @@ library(TSRchitect)
 
 ### NOTE: You will need to replace WORKDIR and GoRAMPAGEhome in the following two lines by the
 ###       appropriate paths on your system to make this script work.
-###       Also change n.cores=4 throughout to use fewer or more processors.
+###       Also change n.cores=6 throughout to use fewer or more processors.
 ###
 BAMDIR  <- c("WORKDIR/output/alignments")
 DmAnnot <- c("GoRAMPAGEhome/demo/MMB/additional_files/Drosophila_melanogaster.BDGP5.78.gff")
 
 # ... initializing the tssObj object:
-DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, isPairedBAM=TRUE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
+
+DmRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, isPairedBAM=TRUE, isPairedBED=FALSE, sampleNames=c("E1h","E2h", "E3h", "L1", "L2", "L3"), replicateIDs=c(1,1,1,2,2,2)) ## 
 
 # ... converting BAM data into TSS information and attaching it to the tssObj object:
 DmRAMPAGE <- inputToTSS(DmRAMPAGE)
 
 # ... constructing the tag count per TSS data matrices:
-DmRAMPAGE <- processTSS(experimentName=DmRAMPAGE, n.cores=4, tssSet="all", writeTable=TRUE)
+DmRAMPAGE <- processTSS(experimentName=DmRAMPAGE, n.cores=6, tssSet="all", writeTable=TRUE)
 
 # ... identifying TSRs (promoters):
-DmRAMPAGE <- determineTSR(experimentName=DmRAMPAGE, n.cores=4, tsrSetType="replicates", tssSet="all", tagCountThreshold=25, clustDist=20, writeTable=TRUE)
+DmRAMPAGE <- determineTSR(experimentName=DmRAMPAGE, n.cores=6, tsrSetType="replicates", tssSet="all", tagCountThreshold=25, clustDist=20, writeTable=TRUE)
 
 # ... now adding tag count output:
 #
@@ -48,7 +49,7 @@ DmRAMPAGE <- addAnnotationToTSR(experimentName=DmRAMPAGE, tsrSetType="replicates
 DmRAMPAGE <- mergeSampleData(DmRAMPAGE)
 
 # ... identifying TSRs (promoters) from the merged samples:
-DmRAMPAGE <- determineTSR(experimentName=DmRAMPAGE, n.cores=4, tsrSetType="merged", tssSet="all", tagCountThreshold=40, clustDist=20, writeTable=TRUE)
+DmRAMPAGE <- determineTSR(experimentName=DmRAMPAGE, n.cores=6, tsrSetType="merged", tssSet="all", tagCountThreshold=40, clustDist=20, writeTable=TRUE)
 
 # ... now adding annotation to the merged samples:
 #

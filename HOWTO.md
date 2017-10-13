@@ -22,9 +22,6 @@ material. The workflow presented in __GoRAMPAGE__ was developed for analysis of 
 To begin, simply type 'GoRAMPAGE' on your command line, which results in the following:
 
 ```
-GoRAMPAGE
-
-
     Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
@@ -43,15 +40,11 @@ GoRAMPAGE
     Step 7  .
 
     To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
-  
-
-GoRAMPAGE -h
-GoRAMPAGE --help
 ```
-OPTIONS string:
--h --
 
+The additional help is shown as:
 
+```
     Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
@@ -70,7 +63,7 @@ OPTIONS string:
     Step 7  .
 
     To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
-  
+
 
       Options default to the specified values if not set.
       Details:
@@ -90,37 +83,37 @@ OPTIONS string:
          --runonlystep <string>           Workflow step to execute; previous steps must have run successfully before.
       4) Else:
         -h|--help                         Show this usage information
-    
+
 ```
-__GoRAMPAGE__ requires the following be supplied to run the entire workflow
+__GoRAMPAGE__ requires the following be supplied to run the entire workflow:
 
 * raw FASTQ file(s) (containing RAMPAGE or other paired-end TSS profiling sequence information; both R1 and R2 files required)
 * a genome assembly (FASTA) file (containing the genome assembly that the fastq reads will be aligned against)
-* a FASTA file containing rRNA sequences from the organism being studied. Each rRNA sequence should be represented by a separate fasta header line (> sequence ID). 
+* a FASTA file containing rRNA sequences from the organism being studied. Each rRNA sequence should be represented by a separate fasta header line (> sequence ID).
 * a barcode file (specifying the barcode sequence and identifier for each sample in the dataset)
 
 The format of the barcode file is as follows:
-
+```
 <sample identifier> <barcode sequence>
-
-An example barcode file can be found in test/barcode
+```
+An example barcode file can be found in _test/barcode_.
 
 ## Sample __GoRAMPAGE__ invocations
 
- __GoRAMPAGE__ can be run as a single, complete workflow, comprising demultiplexing (Step 1),
- adapter clipping (Step 2), rRNA/low complexity read removal (Step 3) and read alignment (Step 4).
- However, each of these steps can be run separately if desired.
- We provide some examples below using the data provided in the test/ directory.
+__GoRAMPAGE__ can be run as a single, complete workflow, comprising demultiplexing (Step 1),
+adapter clipping (Step 2), rRNA/low complexity read removal (Step 3) and read alignment (Step 4).
+However, each of these steps can be run separately if desired.
+We provide some examples below using the data provided in the test/ directory.
 
- To run the entire workflow from beginning to end, use the following command:
- 
+To run the entire workflow from beginning to end, use the following command:
 ```
 cd test/
-GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome --startfromstep step1 >& errTestAll
+GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome >& errTestAll
 ```
-takes the files in __rawreads/__ as input, demultiplexes them according to the contents of __barcodes__, performs hard-clipping (i.e. removal) on the demultiplexed reads, removes rRNA and low-complexity sequences within the demultiplexed sequences, and the aligns the reads to the genome assembly in __genome/__ using STAR.
+which takes the files in __rawreads/__ as input, demultiplexes them according to the contents of __barcodes__, performs hard-clipping (i.e. removal) on the demultiplexed reads, removes rRNA and low-complexity sequences within the demultiplexed sequences, and the aligns the reads to the genome assembly in __genome/__ using STAR.
+(Alternatively, execute __./xruntest__ in the test directory.)
 
-```
+
 ## Steps in the workflow
 A useful approach to learn what the __GoRAMPAGE__ workflow entails is to run an example in
 stepwise fashion.  Just add the option __--runonlystep step1__ to your favorite
@@ -132,7 +125,7 @@ until the final step.
 
 ##### Step 1: Demultiplexing the raw fastq files according to their adapter sequence.
 
-##### Step 2: Clipping the adapters from the demultiplexed reads (both R1 and R2). 
+##### Step 2: Clipping the adapters from the demultiplexed reads (both R1 and R2).
 
 ##### Step 3: Removal of rRNA and low complexity sequences (tagDust) from demultiplexed fastq files
 
