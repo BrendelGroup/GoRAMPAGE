@@ -12,10 +12,10 @@ library(TSRchitect)
 BAMDIR  <- c("./bam_filtered")
 
 # ... initializing the tssObj object:
-ExRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, inputType="bam", isPairedEnd=TRUE, sampleNames=c("Ex1_dm_S1","Ex1_dm_S2", "Ex1_dm_S3", "Ex1_dm_S4", "Ex1_dm_S5", "Ex2_dm_S1", "Ex2_dm_S2", "Ex2_dm_S3", "Ex2_dm_S4", "Ex2_dm_S5", "Ex3_dm_S1", "Ex3_dm_S2", "Ex3_dm_S3", "Ex3_dm_S4", "Ex3_dm_S5"), replicateIDs=c(1,1,1,1,1,2,2,2,2,2,3,3,3,3,3)) ## 
+ExRAMPAGE <- loadTSSobj(experimentTitle="RAMPAGE Tutorial", inputDir=BAMDIR, isPairedBAM=TRUE, isPairedBED=FALSE, sampleNames=c("Ex1_dm_S1","Ex1_dm_S2", "Ex1_dm_S3", "Ex1_dm_S4", "Ex1_dm_S5", "Ex2_dm_S1", "Ex2_dm_S2", "Ex2_dm_S3", "Ex2_dm_S4", "Ex2_dm_S5", "Ex3_dm_S1", "Ex3_dm_S2", "Ex3_dm_S3", "Ex3_dm_S4", "Ex3_dm_S5"), replicateIDs=c(1,1,1,1,1,2,2,2,2,2,3,3,3,3,3)) ## 
 
 # ... converting BAM data into TSS information and attaching it to the tssObj object:
-ExRAMPAGE <- bamToTSS(ExRAMPAGE)
+ExRAMPAGE <- inputToTSS(ExRAMPAGE)
 
 # ... constructing the tag count per TSS data matrices:
 ExRAMPAGE <- processTSS(experimentName=ExRAMPAGE, n.cores=5, tssSet="all", writeTable=TRUE)

@@ -107,20 +107,20 @@ An example barcode file can be found in test/barcode
 
 ## Sample __GoRAMPAGE__ invocations
 
- __GoRAMPAGE__ can be run as a single, complete workflow, comprising demultiplexing (Step 1),
- adapter clipping (Step 2), rRNA/low complexity read removal (Step 3) and read alignment (Step 4).
- However, each of these steps can be run separately if desired.
- We provide some examples below using the data provided in the test/ directory.
+__GoRAMPAGE__ can be run as a single, complete workflow, comprising demultiplexing (Step 1),
+adapter clipping (Step 2), rRNA/low complexity read removal (Step 3) and read alignment (Step 4).
+However, each of these steps can be run separately if desired.
+We provide some examples below using the data provided in the test/ directory.
 
- To run the entire workflow from beginning to end, use the following command:
- 
+To run the entire workflow from beginning to end, use the following command:
 ```
 cd test/
-GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome --startfromstep step1 >& errTestAll
+GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome >& errTestAll
 ```
-takes the files in __rawreads/__ as input, demultiplexes them according to the contents of __barcodes__, performs hard-clipping (i.e. removal) on the demultiplexed reads, removes rRNA and low-complexity sequences within the demultiplexed sequences, and the aligns the reads to the genome assembly in __genome/__ using STAR.
+which takes the files in __rawreads/__ as input, demultiplexes them according to the contents of __barcodes__, performs hard-clipping (i.e. removal) on the demultiplexed reads, removes rRNA and low-complexity sequences within the demultiplexed sequences, and the aligns the reads to the genome assembly in __genome/__ using STAR.
+(Alternatively, execute __./xruntest__ in the test directory.)
 
-```
+
 ## Steps in the workflow
 A useful approach to learn what the __GoRAMPAGE__ workflow entails is to run an example in
 stepwise fashion.  Just add the option __--runonlystep step1__ to your favorite

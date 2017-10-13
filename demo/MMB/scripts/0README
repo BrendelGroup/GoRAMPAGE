@@ -21,6 +21,6 @@ To run the example described in the chapter, you may do the following:
 3) Now you should be set to run the tasks (in order):
 
 	./GoRAMPAGE_script_MMB.sh
-	Rscript TSRchitect_serial_MMB.sh
+	Rscript TSRchitect_serial_MMB.R
 
    (or use the parallel version for the TSRchitect script if you have the resources to do so).
