@@ -1,5 +1,4 @@
-# GoRAMPAGE
-GoRAMPAGE - a workflow for promoter detection by 5'-read mapping
+# GoRAMPAGE - a workflow for promoter detection by 5'-read mapping
 
 For an example of how to use this code, please see:
 
