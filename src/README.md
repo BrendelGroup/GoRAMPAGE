@@ -5,7 +5,7 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ##### README
-Sources and installation notes (current as of September 13, 2016)
+Sources and installation notes (current as of October 5, 2018)
 
 Our recommendation is to install the required programs system-wide.
 Typical would be to run the installation steps as superuser after
@@ -89,5 +89,6 @@ from https://sourceforge.net/projects/tagdust/
 	cd TSRchitect
 ```
 and follow the given installation instructions.
+(Alternatively, install the _Bioconductor_ TSRchitect package.)
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,3 +1,6 @@
+#!/bin/bash
+#
+
 mkdir fastq_files
 cd fastq_files
 fastq-dump --split-files SRR424683

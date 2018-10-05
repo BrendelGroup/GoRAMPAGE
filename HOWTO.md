@@ -5,12 +5,21 @@
 At this point, you should have completed the __GoRAMPAGE__ installation steps
 documented in the [INSTALL](./INSTALL.md) document. Here we explain basic use of
 __GoRAMPAGE__ with the sample test (toy) RAMPAGE data provided in the [test](../test)
-directory. For research applications, please see our [publication](http://brendelgroup.org/).
+directory. For research applications, please see our [publication](http://brendelgroup.org/research/publications.php),
+
+Raborn, R.T. & Brendel, V.P. (2018)
+__Using RAMPAGE to Identify and Annotate Promoters in Insect Genomes.__
+In Insect Genomics: Methods and Protocols, S.J. Brown & Michael E. Pfrender (eds.),
+_Methods in Molecular Biology_,
+__1858__, 85-103.
+
+For simplicity, we assume that you have installed __GoRAMPAGE__ in your home directory (~/).
+
 
 ## Overview
 __GoRAMPAGE__ is an integrated workflow for the processing of paired-end transcription start site (TSS) profiling data.
 RAMPAGE (RNA annotation and mapping of promoters for analysis of gene annotation; Batut and Gingeras, 2013) allows for
-5' mRNA ends to be identified at large-scale and with considerable specificity to identify TSSs and promoters at large scale.
+5'-mRNA ends to be identified at large-scale and with considerable specificity to identify TSSs and promoters at large scale.
 Tag-based TSS profiling methods, of which the most prominent is CAGE (Cap Analysis of Gene Expression; Carninci et al., 2005.),
 are limited because they do not supply the sequence of the transcript body; the TSS must be informatically associated with the downstream
 gene body in all circumstances. By contrast, paired-end TSS profiling methods, including RAMPAGE as well as PEAT (Paired-end Analysis of
@@ -19,13 +28,13 @@ While PEAT library construction requires MNase digestion and adapter ligation, R
 material. The workflow presented in __GoRAMPAGE__ was developed for analysis of RAMPAGE data, but could potentially be applied to PEAT data also.
 
 ## Input
-To begin, simply type 'GoRAMPAGE' on your command line, which results in the following:
+To begin, simply type '~/GoRAMPAGE/scripts/GoRAMPAGE' on your command line, which results in the following:
 
 ```
-    Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
+    Usage: ~/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
-      /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r rawreads -b rawreads/barcodes -R genome/rRNA.ref -g genome --runonlystep step1 >& errTEST1
+      ~/GoRAMPAGE/scripts/GoRAMPAGE -r rawreads -b rawreads/barcodes -R genome/rRNA.ref -g genome --runonlystep step1 >& errTEST1
 
     GoRAMPAGE will determine transcription start regions (TSRs) in a several-steps workflow.
     You can specify partial workflow execution by specifying "stepX" [X = 1, 2, ..., 7] as
@@ -39,16 +48,16 @@ To begin, simply type 'GoRAMPAGE' on your command line, which results in the fol
     Step 6  .
     Step 7  .
 
-    To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
+    To see more help, type "~/GoRAMPAGE/scripts/GoRAMPAGE -h" or "~/GoRAMPAGE/scripts/GoRAMPAGE --help".
 ```
 
 The additional help is shown as:
 
 ```
-    Usage: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
+    Usage: ~/GoRAMPAGE/scripts/GoRAMPAGE -r <rawreaddir> -b <barcodes> -R <reference> -g <genomedir> [options]
 
     Examples:
-      /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -r rawreads -b rawreads/barcodes -R genome/rRNA.ref -g genome --runonlystep step1 >& errTEST1
+      ~/GoRAMPAGE/scripts/GoRAMPAGE -r rawreads -b rawreads/barcodes -R genome/rRNA.ref -g genome --runonlystep step1 >& errTEST1
 
     GoRAMPAGE will determine transcription start regions (TSRs) in a several-steps workflow.
     You can specify partial workflow execution by specifying "stepX" [X = 1, 2, ..., 7] as
@@ -62,7 +71,7 @@ The additional help is shown as:
     Step 6  .
     Step 7  .
 
-    To see more help, type "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE -h" or "/home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE --help".
+    To see more help, type "~/GoRAMPAGE/scripts/GoRAMPAGE -h" or "~/GoRAMPAGE/scripts/GoRAMPAGE --help".
 
 
       Options default to the specified values if not set.
@@ -76,7 +85,7 @@ The additional help is shown as:
       2) GoRAMPAGE-specific options:
         -p|--numproc <#>                  Use <#> processors during execution [Default: 1]; ideally a multipe of the -k argument.
         -o|--outputdir <path>             Put output into directory <path> [Default: ./]
-        -c|--configfile <path>            Configuration file [Default: /home/rtraborn/development/GoRAMPAGE/scripts/GoRAMPAGE.conf]
+        -c|--configfile <path>            Configuration file [Default: ~/GoRAMPAGE/scripts/GoRAMPAGE.conf]
       3) GoRAMPAGE workflow settings; <step> below must be one of (step1, step2, ..., step7)
          --startfromstep <string>	  Starting step; previous steps must have run successfully before.
          --stopatstep <string>            Last step to execute
@@ -108,7 +117,7 @@ We provide some examples below using the data provided in the test/ directory.
 To run the entire workflow from beginning to end, use the following command:
 ```
 cd test/
-GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome >& errTestAll
+../scripts/GoRAMPAGE -r rawreads/ -b barcodes -R rRNA_sequence.fasta -g genome >& errTestAll
 ```
 which takes the files in __rawreads/__ as input, demultiplexes them according to the contents of __barcodes__, performs hard-clipping (i.e. removal) on the demultiplexed reads, removes rRNA and low-complexity sequences within the demultiplexed sequences, and the aligns the reads to the genome assembly in __genome/__ using STAR.
 (Alternatively, execute __./xruntest__ in the test directory.)
